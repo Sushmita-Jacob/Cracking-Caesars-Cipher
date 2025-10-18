@@ -6,7 +6,6 @@ import string
 # Global variables
 initialPosition = 0
 shiftedPosition = 0
-shiftedMessage = ""
 lettersLower = string.ascii_lowercase
 lettersUpper = string.ascii_uppercase
 numbers = string.digits
@@ -35,21 +34,23 @@ initialMessage = input("What is your encrypted message? ")
 input("\nPress enter to generate all of the key possibilities for your encrypted message.\n")
 
 # Cycle through all possible keys
-
-# Decrypt the message
-for character in initialMessage:
-  if character in possibleCharacters:
-    initialPosition = possibleCharacters.find(character)
-    decrypt()
-    wraparound()
-
-    shiftedMessage = shiftedMessage + possibleCharacters[shiftedPosition]
-
-  else: 
-    shiftedMessage = shiftedMessage + character
-
-# Print the shifted message
-print(shiftedMessage)
-
+for key in range(len(possibleCharacters)):
+  shiftedMessage = ""
+    
+  # Decrypt the message
+  for character in initialMessage:
+    if character in possibleCharacters:
+      initialPosition = possibleCharacters.find(character)
+      decrypt()
+      wraparound()
+  
+      shiftedMessage = shiftedMessage + possibleCharacters[shiftedPosition]
+  
+    else: 
+      shiftedMessage = shiftedMessage + character
+  
+  # Print the shifted message
+  print("Key #%s: %s" % (key, shiftedMessage))
+  
 # Closing message
 print("\nNow scroll through all of the key possibilities above and find the readable plaintext message.")
